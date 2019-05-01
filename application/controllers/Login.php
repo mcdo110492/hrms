@@ -88,7 +88,7 @@ class Login extends CI_Controller {
             $new_password   =   substr( md5( rand(100000000,20000000000) ) , 0,7);
             // update the password in database
             $this->db->where('email', $email);
-            $this->db->update('user', array('password' => sha1($new_password)));
+            $this->db->update('user', array('password' => password_hash($new_password)));
             // send an email with the new password
             $this->email_model->password_reset_email($new_password, $email);
             $this->session->set_flashdata('reset_success', get_phrase('check_your_email_for_new_password'));
