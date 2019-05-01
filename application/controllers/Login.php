@@ -39,27 +39,37 @@ class Login extends CI_Controller {
     function validate_login() {
         $email      =   $this->input->post('email');
         $password   =   $this->input->post('password');
-        $credential	=	array(	'email' => $email , 'password' => sha1($password) );
+        $credential	=	array(	'email' => $email);
 
         // Checking login credential for users of the system
         $query = $this->db->get_where('user' , $credential);
         if ($query->num_rows() > 0) {
             $row = $query->row();
 
-            //setting the session parameters for admin
-            if ($row->type == 1) {
-                $this->session->set_userdata('admin_login' , '1');
-                $this->session->set_userdata('login_type' , 'admin');
+            if(password_verify($password, $row->password)){
+
+            
+
+                //setting the session parameters for admin
+                if ($row->type == 1) {
+                    $this->session->set_userdata('admin_login' , '1');
+                    $this->session->set_userdata('login_type' , 'admin');
+                }
+
+                //setting the session parameters for employees
+                if ($row->type == 2) {
+                    $this->session->set_userdata('employee_login' , '1');
+                    $this->session->set_userdata('login_type' , 'employee');
+                }
+                //setting the common session parameters for all type of users of the system
+                $this->session->set_userdata('login_user_id' , $row->user_id);
+                redirect(site_url($this->session->userdata('login_type').'/dashboard'), 'refresh');
+            }
+            else{
+                $this->session->set_flashdata('login_error', 'Invalid Login');
+                redirect(site_url('login'), 'refresh');
             }
 
-            //setting the session parameters for employees
-            if ($row->type == 2) {
-                $this->session->set_userdata('employee_login' , '1');
-                $this->session->set_userdata('login_type' , 'employee');
-            }
-            //setting the common session parameters for all type of users of the system
-            $this->session->set_userdata('login_user_id' , $row->user_id);
-            redirect(site_url($this->session->userdata('login_type').'/dashboard'), 'refresh');
         } else {
             $this->session->set_flashdata('login_error', 'Invalid Login');
             redirect(site_url('login'), 'refresh');

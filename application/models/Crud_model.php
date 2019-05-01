@@ -135,7 +135,7 @@ class Crud_model extends CI_Model {
         $data2['permanent_address']     = $this->input->post('permanent_address');
         $data2['nationality']           = $this->input->post('nationality');
         $data2['email']                 = $this->input->post('email');
-        $data2['password']              = sha1($this->input->post('password'));
+        $data2['password']              = password_hash($this->input->post('password'));
         $data2['joining_salary']        = $this->input->post('joining_salary');
         $data2['status']                = 1;
         $data2['type']                  = 2;
