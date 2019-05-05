@@ -108,8 +108,6 @@ class Login extends CI_Controller {
         redirect(site_url('login') , 'refresh');
     }
 
-    function attendance(){
-        $this->load->view('backend/attendance');
-    }
+   
 
 }

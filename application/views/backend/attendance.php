@@ -33,6 +33,7 @@ $system_name  = $this->db->get_where('settings', array('type' => 'system_name'))
                     <img src="<?php echo base_url();?>assets/login_page/img/logo.png" height="60" alt="">
                 </a>
                 <h2 class="title"><?php echo $system_name; ?> | Employee Attendance</h2>
+                <h2 class="title"><?php echo date('M d, Y'); ?></h2>
             </div>
             <div class="login-content">
                 <!-- <?php echo form_open(site_url('login/validate_login'), array('id'=>'form_login')); ?> -->

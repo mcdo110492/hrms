@@ -353,6 +353,7 @@ class Admin extends CI_Controller {
             }
 
             $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
+            
             redirect(site_url('admin/employee/employee_edit/').$param2,'refresh');
         }
 

@@ -31,6 +31,10 @@ class Employee extends CI_Controller {
         $this->load->view('backend/index');
     }
 
+    function attendance(){
+        $this->load->view('backend/attendance');
+    }
+
     // DASHBOARD
     function dashboard()
     {
@@ -236,6 +240,37 @@ class Employee extends CI_Controller {
             redirect(site_url('employee/profile'), 'refresh');
             
         }
+
+        if($param1 == 'educational_background'){
+
+            $id = $this->db->get_where('user',array('user_code'=>$param2))->row()->user_id;
+
+            $education_id = $this->db->get_where('educational_background', array('user_id' => $id))->row()->education_id;
+
+            $data['elementary_school']  =   $this->input->post('elementary_school');
+            $data['elementary_date_grad'] = $this->input->post('elementary_date_grad');
+            $data['highschool'] = $this->input->post('highschool');
+            $data['highschool_date_grad'] = $this->input->post('highschool_date_grad');
+            $data['college_school'] = $this->input->post('college_school');
+            $data['college_date_grad'] = $this->input->post('college_date_grad');
+            $data['course'] = $this->input->post('course');
+            $data['special_skills'] = $this->input->post('special_skills');
+            $data['others']  = $this->input->post('others');
+            $data['user_id'] = $id;
+
+            if($education_id == null){
+                $this->db->insert('educational_background', $data);
+            }
+            else{
+                $this->db->where('education_id', $education_id);
+                $this->db->update('educational_background', $data);
+            }
+
+            $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
+            
+            redirect(site_url('employee/profile'), 'refresh');
+        }
+
         if($param1 == 'documents')
         {
             //document
