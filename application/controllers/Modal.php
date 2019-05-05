@@ -30,5 +30,10 @@ class Modal extends CI_Controller {
 		
 		echo '<script src="base_url().assets/js/neon-custom-ajax.js"></script>';
 	}
-}
 
+	function attendance($param1 = '', $param2 = '', $param3 = '')
+	{
+		$data = array('type' => $param1);
+		$this->load->view("backend/modal-attendance-login.php", $data);
+	}
+}

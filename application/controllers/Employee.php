@@ -46,6 +46,98 @@ class Employee extends CI_Controller {
         $this->load->view('backend/index', $page_data);
     }
 
+    function attendance_create()
+    {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+        $credential	=	array(	'email' => $email);
+
+         // Checking login credential for users of the system
+         $query = $this->db->get_where('user' , $credential);
+         if ($query->num_rows() > 0) {
+             $row = $query->row();
+             $user_id = $row->user_id;
+             $now = date('Y-m-d');
+             
+             if(password_verify($password, $row->password)){
+                
+                $type = $this->input->post('type');
+
+                if($type == 'time_in'){
+
+                    $data['status'] = 1;
+                    $data['time_in_date'] = date('Y-m-d h:i:s');
+                    $data['date'] = $now;
+                    $data['attendance_code']   = substr(md5(rand(100000000, 20000000000)), 0, 7);
+                    $data['user_id']    =   $user_id;
+
+                    $checkIfAlreadyTimeIn = $this->db->get_where('attendance', array('user_id' => $user_id, 'date' => $now))->row()->time_in_date;
+
+                    if($checkIfAlreadyTimeIn == NULL){
+                        $this->db->insert('attendance', $data);
+                        $this->session->set_flashdata('success_time_in', 'Time In Successfully');
+                    }
+                    else{
+
+                        $this->session->set_flashdata('already_time_in', 'You already time in in this account');
+                    }
+
+
+                    
+                    redirect(site_url('employee/attendance'), 'refresh');
+                }
+                else{
+
+                    $data['time_out_date'] = date('Y-m-d h:i:s');
+
+                    $queryAttendance = $this->db->get_where('attendance', array('user_id' => $user_id, 'date' => $now));
+
+                    $row = $queryAttendance->row();
+
+                    $time_in = $row->time_in_date;
+                    $time_out = $row->time_out_date;
+
+                    if($time_out != null){
+                        $this->session->set_flashdata('alreadty_time_out', 'You already time out in this account');
+                        redirect(site_url('employee/attendance'), 'refresh');
+                    }
+
+                    if($time_in != null){
+
+                        $this->db->where('attendance_id', $row->attendance_id);
+                        $this->db->update('attendance', $data);
+
+                        $this->session->set_flashdata('success_time_out', 'Time Out Successfully');
+                        redirect(site_url('employee/attendance'), 'refresh');
+
+                    }
+                    else{
+
+                        $this->session->set_flashdata('not_timed_in', 'Unable to Time Out. Please Time In first.');
+                        redirect(site_url('employee/attendance'), 'refresh');
+
+                    }
+        
+                }
+                
+                
+                 $this->session->set_flashdata('login_error', 'Invalid Login');
+                 redirect(site_url('employee/attendance'), 'refresh');
+             
+             }
+             else{
+                 $this->session->set_flashdata('login_error', 'Invalid Login');
+                 redirect(site_url('employee/attendance'), 'refresh');
+             }
+ 
+         } else {
+             $this->session->set_flashdata('login_error', 'Invalid Login');
+             redirect(site_url('employee/attendance'), 'refresh');
+         }
+
+       
+    }
+
     // ATTENDANCE REPORT
     function attendance_report()
     {
