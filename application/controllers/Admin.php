@@ -203,6 +203,7 @@ class Admin extends CI_Controller {
         {
             $data2['name']                  = $this->input->post('name');
             $data2['father_name']           = $this->input->post('father_name');
+            $data2['birthplace']            = $this->input->post('birthplace');
             $data2['date_of_birth']         = strtotime($this->input->post('date_of_birth'));
             $data2['gender']                = $this->input->post('gender');
             $data2['phone']                 = $this->input->post('phone');
@@ -326,6 +327,33 @@ class Admin extends CI_Controller {
                 $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
                 redirect(site_url('admin/employee/employee_edit/').$param2,'refresh');
             } 
+        }
+
+        if($param1 == 'educational_background'){
+
+            $education_id = $this->db->get_where('educational_background', array('user_id' => $param2))->row()->education_id;
+
+            $data['elementary_school']  =   $this->input->post('elementary_school');
+            $data['elementary_date_grad'] = $this->input->post('elementary_date_grad');
+            $data['highschool'] = $this->input->post('highschool');
+            $data['highschool_date_grad'] = $this->input->post('highschool_date_grad');
+            $data['college_school'] = $this->input->post('college_school');
+            $data['college_date_grad'] = $this->input->post('college_date_grad');
+            $data['course'] = $this->input->post('course');
+            $data['special_skills'] = $this->input->post('special_skills');
+            $data['others']  = $this->input->post('others');
+            $data['user_id'] = $this->input->post('user_id');
+
+            if($education_id == null){
+                $this->db->insert('educational_background', $data);
+            }
+            else{
+                $this->db->where('education_id', $education_id);
+                $this->db->update('educational_background', $data);
+            }
+
+            $this->session->set_flashdata('flash_message', get_phrase('data_updated_successfully'));
+            redirect(site_url('admin/employee/employee_edit/').$param2,'refresh');
         }
 
     }

@@ -1,4 +1,11 @@
 <div class="form-group">
+    <label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('Employee ID'); ?></label>
+
+    <div class="col-sm-8">
+        <input type="text" class="form-control" name="employee_id" value="<?php echo $row['user_code']; ?>" readonly />
+    </div>
+</div>
+<div class="form-group">
     <label for="field-1" class="col-sm-3 control-label"><?php echo get_phrase('name'); ?></label>
 
     <div class="col-sm-8">
@@ -9,7 +16,7 @@
     <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('fathers_name'); ?></label>
 
     <div class="col-sm-8">
-        <input type="text" class="form-control" name="father_name" value="<?php echo $row['father_name'] ?>" >
+        <input type="text" class="form-control" name="father_name" value="<?php echo $row['father_name'] ?>">
     </div>
 </div>
 <div class="form-group">
@@ -22,12 +29,21 @@
     </div>
 </div>
 <div class="form-group">
+    <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('birthplace'); ?></label>
+
+    <div class="col-sm-8">
+        <input type="text" class="form-control" name="birthplace" value="<?php echo $row['birthplace'] ?>">
+    </div>
+</div>
+<div class="form-group">
     <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('gender'); ?></label>
 
     <div class="col-sm-8">
         <select name="gender" class="form-control selectboxit">
-            <option value="male" <?php if ($row['gender'] == 'male') echo 'selected'; ?>><?php echo get_phrase('male'); ?></option>
-            <option value="female" <?php if ($row['gender'] == 'female') echo 'selected'; ?>><?php echo get_phrase('female'); ?></option>
+            <option value="male" <?php if ($row['gender'] == 'male') echo 'selected'; ?>>
+                <?php echo get_phrase('male'); ?></option>
+            <option value="female" <?php if ($row['gender'] == 'female') echo 'selected'; ?>>
+                <?php echo get_phrase('female'); ?></option>
         </select>
     </div>
 </div>
@@ -35,21 +51,22 @@
     <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('phone'); ?></label>
 
     <div class="col-sm-8">
-        <input type="text" class="form-control" name="phone" value="<?php echo $row['phone'] ?>" >
+        <input type="text" class="form-control" name="phone" value="<?php echo $row['phone'] ?>">
     </div>
 </div>
 <div class="form-group">
     <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('local_address'); ?></label>
 
     <div class="col-sm-8">
-        <input type="text" class="form-control" name="local_address" value="<?php echo $row['local_address'] ?>" >
+        <input type="text" class="form-control" name="local_address" value="<?php echo $row['local_address'] ?>">
     </div>
 </div>
 <div class="form-group">
     <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('permanent_address'); ?></label>
 
     <div class="col-sm-8">
-        <input type="text" class="form-control" name="permanent_address" value="<?php echo $row['permanent_address'] ?>" >
+        <input type="text" class="form-control" name="permanent_address"
+            value="<?php echo $row['permanent_address'] ?>">
     </div>
 </div>
 <div class="form-group">
@@ -59,20 +76,25 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('nationality'); ?></label>
+    <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('citizenship'); ?></label>
 
     <div class="col-sm-8">
-        <input type="text" class="form-control" name="nationality" value="<?php echo $row['nationality']; ?>" >
+        <input type="text" class="form-control" name="nationality" value="<?php echo $row['nationality']; ?>">
     </div>
 </div>
 <div class="form-group">
-    <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('martial_status'); ?></label>
+    <label for="field-2" class="col-sm-3 control-label"><?php echo get_phrase('civil_status'); ?></label>
 
     <div class="col-sm-8">
         <select name="martial_status" class="form-control selectboxit">
-            <option value="married" <?php if ($row['martial_status'] == 'married') echo 'selected'; ?>><?php echo get_phrase('married'); ?></option>
-            <option value="unmarried" <?php if ($row['martial_status'] == 'unmarried') echo 'selected'; ?>><?php echo get_phrase('unmarried'); ?></option>
-            <option value="other" <?php if ($row['martial_status'] == 'other') echo 'selected'; ?>><?php echo get_phrase('other'); ?></option>
+            <option value="single" <?php if ($row['single'] == 'single') echo 'selected'; ?>>
+                <?php echo get_phrase('single'); ?></option>
+            <option value="married" <?php if ($row['martial_status'] == 'married') echo 'selected'; ?>>
+                <?php echo get_phrase('married'); ?></option>
+            <option value="divorced" <?php if ($row['divorced'] == 'divorced') echo 'selected'; ?>>
+                <?php echo get_phrase('divorced'); ?></option>
+            <option value="widowed" <?php if ($row['widowed'] == 'widowed') echo 'selected'; ?>>
+                <?php echo get_phrase('widowed'); ?></option>
         </select>
     </div>
 </div>
@@ -83,10 +105,10 @@
         <div class="fileinput fileinput-new" data-provides="fileinput">
             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
                 <?php if (file_exists('uploads/user_image/' . $row['user_code'] . '.jpg')): ?>
-                    <img src="<?php echo base_url();?>uploads/user_image/<?php echo $row['user_code']; ?>.jpg" alt="...">
+                <img src="<?php echo base_url();?>uploads/user_image/<?php echo $row['user_code']; ?>.jpg" alt="...">
                 <?php endif; ?>
                 <?php if (!(file_exists('uploads/user_image/' . $row['user_code'] . '.jpg'))): ?>
-                    <img src="<?php echo base_url();?>assets/no_image.png" alt="...">
+                <img src="<?php echo base_url();?>assets/no_image.png" alt="...">
                 <?php endif; ?>
             </div>
             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
@@ -96,7 +118,8 @@
                     <span class="fileinput-exists"><?php echo get_phrase('change'); ?></span>
                     <input type="file" name="userfile" accept="image/*">
                 </span>
-                <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
+                <a href="#" class="btn btn-orange fileinput-exists"
+                    data-dismiss="fileinput"><?php echo get_phrase('remove'); ?></a>
             </div>
         </div>
     </div>
