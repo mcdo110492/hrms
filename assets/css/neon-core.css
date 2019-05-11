@@ -5412,7 +5412,7 @@ body {
 .page-container .sidebar-menu {
   display: table-cell;
   vertical-align: top;
-  background: #303641;
+  background: #10185F;
   width: 280px;
   position: relative;
   z-index: 100;
@@ -5604,7 +5604,7 @@ body {
   top: -1px;
 }
 .page-container .sidebar-menu #main-menu li.active > a {
-  background-color: #2b303a;
+  background-color: #F15C07;
   color: #fff;
 }
 .page-container .sidebar-menu #main-menu li.has-sub > a:before {
@@ -5648,11 +5648,11 @@ body {
   border-bottom: 1px solid rgba(69, 74, 84, 0.4);
 }
 .page-container .sidebar-menu #main-menu li ul > li > a {
-  background-color: #2b303a;
+  background-color: #10185F;
   padding-left: 40px;
 }
 .page-container .sidebar-menu #main-menu li ul > li > a:hover {
-  background-color: #2d323d;
+  background-color: #103D5f;
 }
 .page-container .sidebar-menu #main-menu li ul > li:last-child {
   border-bottom: 0;

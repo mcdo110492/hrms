@@ -11,9 +11,9 @@ a{
 ::-webkit-scrollbar {
     width: 10px;
 }
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     background-color: #314252;
-} /* the new scrollbar will have a flat appearance with the set background color */
+} the new scrollbar will have a flat appearance with the set background color */
 
 ::-webkit-scrollbar-thumb {
       background-color: rgba(0, 0, 0, 0.2);
@@ -38,12 +38,17 @@ a{
 .login-area {
     width: 35%;
     position: relative;
-    box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.2);
-    background-color: #0d1b28;
-	text-align:center;
+    box-shadow: 5px 0px 15px #10185F;
+    background-color: #10185F; /*#0d1b28;*/
+	text-align: center;
 	padding-top: 100px;
 	color: #fff;
 	overflow-y: scroll;
+}
+
+
+.login-btn {
+    background-color: #F15C07 !important;
 }
 
 .image-area {
